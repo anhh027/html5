@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!-- 文本内容可以编辑 -->
+<article contenteditable="true">
+<!-- 单独控制文本内容不可以编辑 -->
+	<h3 contenteditable="false">HTML5 全局contentmenu 属性</h3>
+	<!-- 从父元素继承的文本内容可以编辑 -->
+	<p contenteditable="inherit">
+		当一个元素的contenteditable状态为true （contenteditable属性为空字符串，或为true，或为 inherit且其父元素状态为true）时，意味着该元素是可 编辑的。否则，该元素不可编辑.&lt;menu&gt;
+	</p>
+</article>
+<script>
+	document.querySelector('article').onblur=function(){
+		alert(this.innerText);
+	}
+</script>	
+</body>
+</html>

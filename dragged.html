@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+	.box{
+		width:1000px;
+		height: 500px;
+		border:1px solid #ccc;
+		position: relative;
+		margin:0 auto;
+	}
+	.inner{
+		width:300px;
+		height: 300px;
+		background-color: blue;
+		position: absolute;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="inner" draggable=true></div>
+	</div>
+	<script>
+	function d(obj){
+		return new drag(obj);
+	}
+	function drag(obj){
+		this.obj=obj;
+		this.dx=0;
+		this.dy=0;
+		this.mx=0;
+		this.my=0;
+		this.ox=0;
+		this.oy=0;
+		this._mfn=null;
+		this._dfn=null;
+		this.down();
+	}
+	drag.prototype.down=function(){
+		var that=this;
+		this.obj.addEventListener('mousedown',function(ev){
+			// alert(1);
+			ev.preventDefault();
+			//this==this.obj==div;
+			that.dx=ev.clientX;
+			that.dy=ev.clientY;
+			that.ox=this.offsetLeft;
+			that.oy=this.offsetTop;
+			that.move();
+			that.up();
+			
+		})
+		drag.prototype.move=function(){
+		var that=this;
+		that._mfn=function(ev){
+			that.mx=ev.clientX;
+			that.my=ev.clientY;
+			that.obj.style.left=that.mx-(that.dx-that.ox)+'px';
+			that.obj.style.top=that.my-(that.dy-that.oy)+'px';
+			
+		}
+		document.addEventListener('mousemove',that._mfn);
+		
+	}
+	}
+	
+	drag.prototype.up=function(){
+		var that=this;
+		that._dfn=function(){
+			document.removeEventListener('mousemove',that._mfn);
+			document.removeEventListener('mouseup',that._dfn);
+		}
+		document.addEventListener('mouseup',that._dfn);
+	}
+	d(document.querySelector(".inner"));
+	</script>
+</body>
+</html>

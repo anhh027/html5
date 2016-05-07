@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	html,body{
+		margin:0;
+		padding:0;
+		height: 100%;
+	}
+	.left,.right{
+		width:400px;
+		height:100%;
+		border:1px solid orange;
+		box-sizing:border-box;
+	}
+	img{
+		width:197px;
+		float:left;
+		border:1px solid #ccc;		
+	}
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	</style>
+</head>
+<body>
+	<div class="left fl">
+		<img src="./images/1.webp.jpg"/>
+		<img src="./images/2.webp.jpg"/>
+		<img src="./images/3.webp.jpg"/>
+		<img src="./images/4.webp.jpg"/>
+		<img src="./images/5.webp.jpg"/>
+		<img src="./images/6.webp.jpg"/>
+	</div>
+	<div class="right fr"></div>
+	<script>
+	var left=document.querySelector(".left");
+	var right=document.querySelector(".right");
+	var imgs=document.querySelectorAll("img");
+	for(var i=0;i<imgs.length;i++){
+		imgs[i].draggable=true;
+		imgs[i].ondragstart=function(e){
+			this.setAttribute("d","true");
+			// console.log(e.dataTransfer);
+			e.dataTransfer.setData('aa','10');
+		}
+	}
+	right.ondragenter=function(e){
+		//必须阻止浏览器默认动作
+		e.preventDefault();
+	}
+	right.ondragover=function(e){
+		//必须阻止浏览器默认动作
+		e.preventDefault();
+	}
+	right.ondrop=function(e){
+		for(var i=0;i<imgs.length;i++){
+			if(imgs[i].getAttribute("d")){
+				this.appendChild(imgs[i]);
+				imgs[i].removeAttribute("d");
+			}
+		}
+			console.log(e.dataTransfer.getData("aa"));
+	}
+	left.ondragenter=function(e){
+		//必须阻止浏览器默认动作
+		e.preventDefault();
+	}
+	left.ondragover=function(e){
+		//必须阻止浏览器默认动作
+		e.preventDefault();
+	}
+	left.ondrop=function(e){
+		for(var i=0;i<imgs.length;i++){
+			if(imgs[i].getAttribute("d")){
+				this.appendChild(imgs[i]);
+				imgs[i].removeAttribute("d");
+			}
+		}
+	
+	}
+	</script>
+</body>
+</html>

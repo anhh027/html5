@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.box{
+		width:300px;
+		height:300px;
+		border:1px solid blue;
+	}
+	.out{
+		width:200px;
+		height:200px;
+		border:1px solid #ccc;
+	}
+	</style>
+</head>
+<body>
+	<div class="box" draggable=true></div>
+	<div class="out" draggable=true></div>
+	<hr>
+	<textarea name="" id="text" cols="30" rows="10"></textarea>
+	<textarea name="" id="text2" cols="30" rows="10"></textarea>
+	<script>
+	text.innerHTML="";
+	var box=document.querySelector(".box");
+	box.ondragstart=function(){
+		text.innerHTML+="拖拽开始";
+	}
+	box.ondrag=function(){
+		text.innrtHTML+="移动";
+	}
+	box.ondragend=function(){
+		text.innrtHTML+="拖拽结束";
+	}
+	var out=document.querySelector(".out");
+	out.ondragenter=function(e){
+		//必须阻止浏览器默认动作
+		e.preventDefault();
+		text2.innerHTML+="拖拽对象进入投放区";
+	}
+	out.ondragover=function(){
+		// text2.innerHTML+="投放区移动";
+	}
+	out.ondragleave=function(){
+		text2.innerHTML+="离开投放区";
+	}
+	out.ondrop=function(){
+		box.style.background="blue";
+		out.appendChild(box);
+	}
+	</script>
+</body>
+</html>
